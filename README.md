@@ -33,7 +33,12 @@ magic_diff is a command-line tool that automates your git commit messages. You s
    brew install llm (or pip install llm)
    ```
 
-2. Set up your OpenAI API key:
+2. (Optional) Install plugins for other model providers such as....
+    ```
+    llm install llm-claude-3
+    ```
+
+2. Set up your OpenAI/Anthropic/other provider API key:
    ```
    llm keys set openai
    ```

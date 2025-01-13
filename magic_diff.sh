@@ -10,6 +10,7 @@ copy_to_clipboard() {
         cat "$file_name" | wl-copy
     else
         echo "Clipboard tool not found, couldn't save $file_name"
+        exit 0
     fi
 }
 
@@ -22,6 +23,7 @@ copy_diff() {
     else
         echo "No changes detected. Please stage some files before using magic_diff."
         rm "$file_name"  # Clean up the empty diff file
+        exit 0
     fi
 }
 
@@ -29,7 +31,6 @@ magic_diff() {
     local timestamp=$(date +"%Y%m%d_%H%M%S")
     local diff_file_name=$(mktemp /tmp/magic_diff_staged_diff.$timestamp.txt)
     local commit_file_name=$(mktemp /tmp/magic_diff_commit.$timestamp.txt)
-    echo "Generating message..."
     copy_diff $diff_file_name
 
     if [ -f "$diff_file_name" ]; then
@@ -40,7 +41,7 @@ magic_diff() {
             echo "llm command not found. Please ensure it's installed and in your PATH."
         fi
 
-        llm "Generate a git commit message based on the following diff: $diff_content" > "$commit_file_name"
+        llm "Generate a git commit message based on the following diff. Here is the diff: $diff_content" > "$commit_file_name"
 
         copy_to_clipboard "$commit_file_name"
         echo "Message copied to clipboard"
@@ -52,5 +53,6 @@ magic_diff() {
         fi
     else
         echo "Failed to create or find diff file."
+        exit 0
     fi
 }
