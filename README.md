@@ -75,3 +75,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+## Credits
+
+Thanks Chong-U Lim for inspiration for the environment-neutral copy functionality.
