@@ -4,8 +4,7 @@ magic-diff is a command-line tool that automates the process of generating meani
 
 ## Features
 
-- Automatically generates a git commit message based on staged changes
-- Uses AI to analyze the diff and create a relevant commit message
+- Automatically generates a git commit message based on staged changes using an LLM of your choice
 - Copies the generated message to your clipboard for easy pasting
 - Supports multiple clipboard tools (pbcopy, xclip, clip)
 
@@ -22,12 +21,10 @@ magic-diff is a command-line tool that automates the process of generating meani
    cd magic-diff
    ```
 
-2. Make the script executable:
+2. Move the contents of magic_diff.sh into your PATH (.zprofile, .bashrc etc.)
    ```
    chmod +x magic_diff.sh
    ```
-
-3. (Optional) Add the script to your PATH for easy access.
 
 ## Setup
 
@@ -41,7 +38,7 @@ magic-diff is a command-line tool that automates the process of generating meani
    llm keys set openai
    ```
 
-3. (Recommended) Set a default model:
+3. (Recommended) Set a cheap but effective default model:
    ```
    llm models default gpt-4o-mini
    ```
