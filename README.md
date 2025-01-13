@@ -1,6 +1,6 @@
 # magic-diff
 
-magic-diff is a command-line tool that automates the process of generating meaningful git commit messages based on your staged changes.
+magic-diff is a command-line tool that automates your git commit messages. You stage changes, it writes your commit.
 
 ## Features
 
