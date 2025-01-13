@@ -6,6 +6,8 @@ copy_to_clipboard() {
         cat "$file_name" | xclip -selection clipboard
     elif command -v clip &> /dev/null; then
         cat "$file_name" | clip
+    elif command -v wl-copy &> /dev/null; then
+        cat "$file_name" | wl-copy
     else
         echo "Clipboard tool not found, couldn't save $file_name"
     fi
@@ -15,9 +17,8 @@ copy_diff() {
     local file_name=$1
     git diff --cached > "$file_name"
 
-    # Check if there are any changes in the staged files
     if [ -s "$file_name" ]; then
-        echo "Generating messaging..."
+        echo "Generating commit message..."
     else
         echo "No changes detected. Please stage some files before using magic_diff."
         rm "$file_name"  # Clean up the empty diff file
