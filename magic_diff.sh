@@ -17,7 +17,7 @@ copy_diff() {
 
     # Check if there are any changes in the staged files
     if [ -s "$file_name" ]; then
-        echo "Diff saved in $file_name"
+        echo "Generating messaging..."
     else
         echo "No changes detected. Please stage some files before using magic_diff."
         rm "$file_name"  # Clean up the empty diff file
