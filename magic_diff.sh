@@ -15,27 +15,30 @@ copy_to_clipboard() {
 
 copy_diff() {
     local file_name=$1
-    git diff --cached \
-        ':!package-lock.json' \
-        ':!yarn.lock' \
-        ':!pnpm-lock.yaml' \
-        ':!composer.lock' \
-        ':!Gemfile.lock' \
-        ':!Cargo.lock' \
-        ':!Pipfile.lock' \
-        ':!poetry.lock' \
-        ':!packages.lock.json' \
-        ':!go.sum' \
-        ':!build.sbt.lock' \
-        ':!mix.lock' \
-        ':!pubspec.lock' \
-        ':!Package.resolved' \
-        ':!cabal.project.freeze' \
-        ':!deps.edn' \
-        ':!rebar.lock' \
-        ':!opam.locked' \
-        ':!gradle.lockfile' \
-        > "$file_name"
+    local exclusions=()
+
+    # List of lock files to potentially exclude
+    local lock_files=(
+        "package-lock.json" "yarn.lock" "pnpm-lock.yaml" "composer.lock"
+        "Gemfile.lock" "Cargo.lock" "Pipfile.lock" "poetry.lock"
+        "packages.lock.json" "go.sum" "build.sbt.lock" "mix.lock"
+        "pubspec.lock" "Package.resolved" "cabal.project.freeze" "deps.edn"
+        "rebar.lock" "opam.locked" "gradle.lockfile"
+    )
+
+    # Build exclusion list based on existing files
+    for lock_file in "${lock_files[@]}"; do
+        if git ls-files "$lock_file" --error-unmatch &> /dev/null; then
+            exclusions+=("':!$lock_file'")
+        fi
+    done
+
+    # Construct and execute the git diff command
+    if [ ${#exclusions[@]} -eq 0 ]; then
+        git diff --cached > "$file_name"
+    else
+        eval "git diff --cached ${exclusions[*]}" > "$file_name"
+    fi
 
     if [ -s "$file_name" ]; then
         echo "Generating commit message..."
