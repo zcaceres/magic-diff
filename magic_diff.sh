@@ -41,7 +41,7 @@ magic_diff() {
             echo "llm command not found. Please ensure it's installed and in your PATH."
         fi
 
-        llm "Generate a git commit message based on the following diff. Here is the diff: $diff_content" > "$commit_file_name"
+        llm "Generate a git commit message based on the following diff. Do NOT include any markdown, quotation marks or additional markup. Just include a great message. Here is the diff: $diff_content" > "$commit_file_name"
 
         copy_to_clipboard "$commit_file_name"
         echo "Message copied to clipboard"
