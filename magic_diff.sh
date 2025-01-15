@@ -64,6 +64,9 @@ magic_diff() {
 
         llm "Generate a git commit message based on the following diff. Do NOT include any backticks (\`) or quotation marks of any kind because that will BREAK the message. DO NOT INCLUDE BACKTICK OR QUOTATION MARK CHARACTERS. You can ONLY use light formatting like lists if needed. Here is the diff: $diff_content" > "$commit_file_name"
 
+        # Replace backticks with single quotes in the commit file. Models often include backticks and this breaks the git commit message.
+        sed -i.bak "s/\`/'/g" "$commit_file_name" && rm "${commit_file_name}.bak"
+
         copy_to_clipboard "$commit_file_name"
         echo "Message copied to clipboard"
 
