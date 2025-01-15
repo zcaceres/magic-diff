@@ -16,7 +16,27 @@ copy_to_clipboard() {
 
 copy_diff() {
     local file_name=$1
-    git diff --cached > "$file_name"
+    git diff --cached \
+        ':!package-lock.json' \
+        ':!yarn.lock' \
+        ':!pnpm-lock.yaml' \
+        ':!composer.lock' \
+        ':!Gemfile.lock' \
+        ':!Cargo.lock' \
+        ':!Pipfile.lock' \
+        ':!poetry.lock' \
+        ':!packages.lock.json' \
+        ':!go.sum' \
+        ':!build.sbt.lock' \
+        ':!mix.lock' \
+        ':!pubspec.lock' \
+        ':!Package.resolved' \
+        ':!cabal.project.freeze' \
+        ':!deps.edn' \
+        ':!rebar.lock' \
+        ':!opam.locked' \
+        ':!gradle.lockfile' \
+        > "$file_name"
 
     if [ -s "$file_name" ]; then
         echo "Generating commit message..."
@@ -41,7 +61,7 @@ magic_diff() {
             echo "llm command not found. Please ensure it's installed and in your PATH."
         fi
 
-        llm "Generate a git commit message based on the following diff. Do NOT include any markdown backticks or quotation marks because that will break the message. You can use light formatting like lists if needed. Here is the diff: $diff_content" > "$commit_file_name"
+        llm "Generate a git commit message based on the following diff. Do NOT include any backticks (\`) or quotation marks of any kind because that will BREAK the message. DO NOT INCLUDE BACKTICK OR QUOTATION MARK CHARACTERS. You can ONLY use light formatting like lists if needed. Here is the diff: $diff_content" > "$commit_file_name"
 
         copy_to_clipboard "$commit_file_name"
         echo "Message copied to clipboard"
