@@ -1,5 +1,7 @@
 # magic_diff
 
+![magic_diff logo](logo.jpg)
+
 magic_diff is a command-line tool that automates your git commit messages. You stage changes, it writes your commit.
 
 ## Features
