@@ -19,7 +19,7 @@ magic_diff is a command-line tool that automates your git commit messages. You s
 
 1. Clone this repository:
    ```
-   git clone https://github.com/yourusername/magic-diff.git
+   git clone https://github.com/zcaceres/magic-diff.git
    cd magic-diff
    ```
 
