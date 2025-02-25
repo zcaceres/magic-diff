@@ -32,7 +32,7 @@ magic_diff is a command-line tool that automates your git commit messages. You s
 
 1. Install the `llm` tool if you haven't already:
    ```
-   brew install llm (or pip install llm)
+   brew install llm
    ```
 
 2. (Optional) Install plugins for other model providers such as....
